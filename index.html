@@ -811,7 +811,8 @@ footer{
   var stage    = document.getElementById('orbitStage');
   var mainImg  = document.getElementById('orbitMain');
   var thumbs   = [0,1,2,3].map(function(i){return document.getElementById('ot'+i);});
-  var srcs     = thumbs.map(function(t){return t.querySelector('img').src;});
+  /* srcs read live so the ES-module can set real images after this script runs */
+  function getSrc(i){ return thumbs[i].querySelector('img').src; }
   var angle    = 0;
   var speed    = 0.35;
   var paused   = false;
@@ -828,7 +829,7 @@ footer{
     activeI = idx;
     mainImg.classList.add('fade');
     setTimeout(function() {
-      mainImg.src = srcs[idx];
+      mainImg.src = getSrc(idx);
       mainImg.classList.remove('fade');
     }, 200);
     thumbs.forEach(function(t,i) { t.classList.toggle('lit', i===idx); });
@@ -1399,6 +1400,16 @@ const tlg = document.querySelector('.tl-grid');
 function setTl(){ if(tlg) tlg.style.gridTemplateColumns = innerWidth < 768 ? '1fr' : '1fr 1fr' }
 setTl(); window.addEventListener('resize', setTl);
 </script>
-  <script type="module" src="base64-data.js"></script>
+  <script type="module">
+    import { asset1_gif, asset2_gif, asset3_gif, asset4_gif, asset5_gif, asset6_gif, asset7_pdf } from './base64-data.js';
+    document.getElementById('heroPhoto').src = asset1_gif;
+    document.getElementById('ot0Img').src = asset2_gif;
+    document.getElementById('ot1Img').src = asset3_gif;
+    document.getElementById('ot2Img').src = asset4_gif;
+    document.getElementById('ot3Img').src = asset5_gif;
+    // Set the main orbit display to the first thumb image
+    document.getElementById('orbitMain').src = asset2_gif;
+    document.getElementById('downloadCv').href = asset7_pdf;
+  </script>
 </body>
 </html>
