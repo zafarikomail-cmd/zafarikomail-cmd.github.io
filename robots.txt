@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://ahmadkomailzafari.pages.dev/sitemap.xml
+
+# Crawl-delay (optional, be gentle)
+Crawl-delay: 10
+
+# Block access to any assets folder if it contains private files
+# Disallow: /assets/private/
